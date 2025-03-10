@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:gurkha_pasal/consts/list.dart';
+import 'package:gurkha_pasal/views/auth/forgot_password_screen.dart'; // Add this import
 import 'package:gurkha_pasal/views/auth/signup_screen.dart';
 import 'package:gurkha_pasal/views/home_screen/home.dart';
 import 'package:gurkha_pasal/views/widgets_common/applogo_widget.dart';
@@ -17,6 +17,35 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final auth = FirebaseAuth.instance;
+
+    void handleLogin() async {
+      try {
+        await auth.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+        Get.off(() => const Home());
+        Get.snackbar(
+          "Success",
+          "Logged in successfully!",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: redColor,
+          colorText: whiteColor,
+        );
+      } catch (e) {
+        Get.snackbar(
+          "Error",
+          e.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: redColor,
+          colorText: whiteColor,
+        );
+      }
+    }
+
     return bgWidget(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -30,12 +59,25 @@ class LoginScreen extends StatelessWidget {
               10.heightBox,
               Column(
                     children: [
-                      customTextField(title: email, hint: emailHint),
-                      customTextField(title: password, hint: passwordHint),
+                      customTextField(
+                        title: email,
+                        hint: emailHint,
+                        controller: emailController,
+                      ),
+                      customTextField(
+                        title: password,
+                        hint: passwordHint,
+                        controller: passwordController,
+                        isPass: true,
+                      ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(
+                              () => const ForgotPasswordScreen(),
+                            ); // Navigate to forgot password screen
+                          },
                           child: forgetPass.text.make(),
                         ),
                       ),
@@ -44,14 +86,10 @@ class LoginScreen extends StatelessWidget {
                         color: redColor,
                         title: login,
                         textColor: whiteColor,
-                        onPress: () {
-                          Get.to(() => const Home());
-                        },
+                        onPress: handleLogin,
                       ).box.width(context.screenWidth - 50).make(),
-
                       15.heightBox,
                       createNewAccount.text.color(fontGrey).make(),
-
                       ourButton(
                         color: lightGolden,
                         title: signup,
@@ -61,10 +99,8 @@ class LoginScreen extends StatelessWidget {
                         },
                       ).box.width(context.screenWidth - 50).make(),
                       10.heightBox,
-
                       loginWith.text.color(fontGrey).make(),
                       5.heightBox,
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
@@ -84,7 +120,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ).box.white.rounded
-                  .padding(EdgeInsets.all(16))
+                  .padding(const EdgeInsets.all(16))
                   .width(context.screenWidth - 70)
                   .shadowSm
                   .make(),

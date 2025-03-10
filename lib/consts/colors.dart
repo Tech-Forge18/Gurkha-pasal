@@ -8,3 +8,12 @@ const Color lightGrey = Color.fromRGBO(239, 239, 239, 1);
 const Color redColor = Color.fromRGBO(239, 104, 8, 1);
 const Color golden = Color.fromRGBO(255, 168, 0, 1);
 const Color lightGolden = Color(0xfffEEAD1);
+const Color primaryColor = Colors.red;
+const Color darkGrey = Colors.grey;
+const Color greyColor = Color(0xFF757575);
+// Primary brand colors
+
+const Color secondaryColor = Color.fromRGBO(255, 168, 0, 1); // Orange accent
+
+// Background colors
+const Color scaffoldBackgroundColor = Color.fromRGBO(240, 240, 240, 1);

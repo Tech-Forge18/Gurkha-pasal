@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gurkha_pasal/consts/consts.dart';
-
+import 'package:gurkha_pasal/consts/images.dart';
 
 Widget bgWidget({Widget? child}) {
   return Container(
@@ -8,7 +7,8 @@ Widget bgWidget({Widget? child}) {
       image: DecorationImage(
         image: AssetImage(imgBackground),
         fit: BoxFit.fill,
-    )),
+      ),
+    ),
     child: child,
   );
 }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1008185314670",
+    "project_id": "gurkhapasal-779d6",
+    "storage_bucket": "gurkhapasal-779d6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008185314670:android:d5ead94826d37920ac857f",
+        "android_client_info": {
+          "package_name": "com.example.gurkha_pasal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMZ2bWY_hmI6gkel-aHuz8pZ5ZRAtn-2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

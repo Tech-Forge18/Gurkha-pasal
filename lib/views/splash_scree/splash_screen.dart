@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart'; // Simplified import
 import 'package:gurkha_pasal/consts/consts.dart';
+import 'package:gurkha_pasal/consts/images.dart';
 import 'package:gurkha_pasal/views/auth/login_screen.dart';
 import 'package:gurkha_pasal/views/widgets_common/applogo_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
 
-class SplashScreen extends StatefulWidget{
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key}); // Updated to use super.key
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  changeScreen(){
-    Future.delayed(const Duration(seconds: 3),(){
-      Get.to(()=>const LoginScreen());
+  void changeScreen() {
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.off(
+        () => const LoginScreen(),
+      ); // Changed to Get.off for cleaner navigation
     });
   }
 
   @override
   void initState() {
-    changeScreen();
     super.initState();
+    changeScreen();
   }
 
   @override
@@ -33,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: Image.asset(icSplashBg,width: 300),
+              child: Image.asset(icSplashBg, width: 300),
             ),
             20.heightBox,
             applogoWidget(),
@@ -44,7 +48,6 @@ class _SplashScreenState extends State<SplashScreen> {
             const Spacer(),
             credits.text.white.fontFamily(semibold).make(),
             30.heightBox,
-
           ],
         ),
       ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
+import 'package:velocity_x/velocity_x.dart';
 
-Widget ourButton({onPress, color, textColor,String? title}) {
+Widget ourButton({onPress, color, textColor, String? title}) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: color,
