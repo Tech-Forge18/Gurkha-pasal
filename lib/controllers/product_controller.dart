@@ -22,9 +22,9 @@ class ProductController extends GetxController {
         description: "High-quality wireless earbuds with noise cancellation.",
         price: 49.99,
         imageUrl:
-            "https://images.unsplash.com/photo-1606220588913-b3a1b480fc25",
+            "https://images.unsplash.com/photo-1572635196237-14b3f281503f",
         category: "Electronics",
-        discount: 20,
+        discount: 0,
       ),
       Product(
         id: "2",
@@ -32,7 +32,7 @@ class ProductController extends GetxController {
         description: "Adjustable dumbbell set for home workouts.",
         price: 89.99,
         imageUrl:
-            "https://images.unsplash.com/photo-1605296866985-34b1741b88b7",
+            "https://images.unsplash.com/photo-1572635196237-14b3f281503f",
         category: "Fitness",
         discount: 15,
       ),
@@ -41,7 +41,8 @@ class ProductController extends GetxController {
         name: "Leather Jacket",
         description: "Stylish leather jacket for all seasons.",
         price: 129.99,
-        imageUrl: "https://images.unsplash.com/photo-1551488831-00ddcb6c0b6d",
+        imageUrl:
+            "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
         category: "Clothing",
         discount: 10,
       ),
@@ -50,8 +51,7 @@ class ProductController extends GetxController {
         name: "Smart Watch",
         description: "Smart watch with fitness tracking and notifications.",
         price: 199.99,
-        imageUrl:
-            "https://images.unsplash.com/photo-1617043985467-5a141f8961df",
+        imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",
         category: "Electronics",
         discount: 25,
       ),
@@ -90,7 +90,7 @@ class ProductController extends GetxController {
         description: "Electric stainless steel kettle with auto shut-off.",
         price: 29.99,
         imageUrl:
-            "https://images.unsplash.com/photo-1571761953909-9d8a8d64e5e1",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Home & Kitchen",
         discount: 15,
       ),
@@ -100,7 +100,7 @@ class ProductController extends GetxController {
         description: "Non-slip yoga mat for all fitness levels.",
         price: 19.99,
         imageUrl:
-            "https://images.unsplash.com/photo-1601925267869-02e43e951d2e",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Fitness",
         discount: 10,
       ),
@@ -215,5 +215,9 @@ class ProductController extends GetxController {
         discount: 15,
       ),
     ]);
+
+    exclusiveDeals.assignAll(
+      products.where((product) => product.discount! > 0).toList(),
+    );
   }
 }

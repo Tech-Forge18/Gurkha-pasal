@@ -14,11 +14,17 @@ class ExclusiveDealsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: "Exclusive Deals".text.color(darkFontGrey).make(),
-        backgroundColor: Colors.transparent,
+        title:
+            "Exclusive Deals".text
+                .color(const Color.fromARGB(255, 236, 234, 234))
+                .make(),
+        backgroundColor: const Color.fromRGBO(239, 104, 8, 1),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: darkFontGrey),
+          icon: Icon(
+            Icons.arrow_back,
+            color: const Color.fromARGB(255, 12, 12, 12),
+          ),
           onPressed: () => Get.back(),
         ),
       ),

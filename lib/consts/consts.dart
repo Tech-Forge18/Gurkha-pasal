@@ -61,6 +61,7 @@ const Color primaryColor = Color.fromRGBO(
   8,
   1,
 ); // Aligned with redColor
+const bgColor = Color.fromARGB(255, 124, 123, 123);
 
 // Primary brand colors
 

@@ -1,11 +1,15 @@
+// HomeScreen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:gurkha_pasal/consts/images.dart';
 import 'package:gurkha_pasal/controllers/product_controller.dart';
-import 'package:gurkha_pasal/views/product_screen/product_details.dart';
+import 'package:gurkha_pasal/views/exclusive_deal_screen/exclusive_deals_screen.dart';
 import 'package:gurkha_pasal/views/product_screen/product_listing.dart';
+import 'package:gurkha_pasal/views/product_screen/product_details.dart';
+import 'package:gurkha_pasal/views/widgets_common/exclusive_product_card.dart';
+import 'package:gurkha_pasal/views/widgets_common/featured_product.dart';
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/Categories/hoem_categories.dart';
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/ViewAll/Section_hearding.dart';
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/appBar_widgets/searchContainer.dart';
@@ -42,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                         SectionHeading(
                           title: 'Popular Categories',
                           showActionButton: true,
-                          textColor: darkFontGrey,
+                          textColor: const Color.fromARGB(255, 20, 20, 20),
                           onPressed: () {
                             /* Navigate to categories */
                           },
@@ -81,47 +85,56 @@ class HomeScreen extends StatelessWidget {
                       .toList(),
             ).p(16),
 
-            // Interactive Ad Banner
-            Container(
-              height: 120,
-              margin: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [primaryColor, secondaryColor],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
+            // Exclusive Deals Section
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SectionHeading(
+                        title: 'Exclusive Deals',
+                        showActionButton: false,
+                        textColor: const Color.fromARGB(255, 20, 20, 20),
+                        textStyle: TextStyle(
+                          fontFamily: bold,
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 20, 20, 20),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed:
+                            () => Get.to(() => const ExclusiveDealsScreen()),
+                        child: Text(
+                          'Show More',
+                          style: TextStyle(color: primaryColor),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.local_offer, color: whiteColor, size: 36),
-                  16.widthBox,
-                  Flexible(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        "Exclusive Deals".text.white.bold.size(20).make(),
-                        "Upto 70% OFF on selected items".text.white.semiBold
-                            .size(14)
-                            .make(),
-                      ],
+                ),
+                SizedBox(
+                  height: 220,
+                  child: Obx(
+                    () => ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          productController.exclusiveDeals.length > 4
+                              ? 4
+                              : productController.exclusiveDeals.length,
+                      padding: const EdgeInsets.only(left: 16),
+                      itemBuilder: (context, index) {
+                        return ExclusiveDealCard(
+                          product: productController.exclusiveDeals[index],
+                        );
+                      },
                     ),
                   ),
-                ],
-              ),
-            ).onTap(() {
-              // Add ad click action
-            }),
+                ),
+              ],
+            ),
 
             // Featured Products Section
             Padding(
@@ -129,7 +142,12 @@ class HomeScreen extends StatelessWidget {
               child: SectionHeading(
                 title: 'Featured Products',
                 showActionButton: true,
-                textColor: darkFontGrey,
+                textColor: const Color.fromARGB(255, 19, 18, 18),
+                textStyle: TextStyle(
+                  fontFamily: bold,
+                  fontSize: 16,
+                  color: Color.fromARGB(255, 20, 20, 20),
+                ),
                 onPressed: () => Get.to(() => const ProductScreen()),
               ),
             ),
@@ -143,7 +161,7 @@ class HomeScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
-                  childAspectRatio: 0.7,
+                  childAspectRatio: 0.65,
                 ),
                 itemCount:
                     productController.products.length > 4
@@ -157,141 +175,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ProductCard extends StatelessWidget {
-  final product;
-
-  const ProductCard({Key? key, required this.product}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: whiteColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 2,
-            blurRadius: 10,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-                child: Image.network(
-                  product.imageUrl,
-                  height: 180,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      height: 180,
-                      color: lightGrey,
-                      child: Center(
-                        child: Icon(Icons.image, color: darkFontGrey),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              if (product.discount != null && product.discount! > 0)
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: redColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      '-${product.discount}%\nOFF',
-                      style: TextStyle(
-                        color: whiteColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: darkFontGrey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '\$${product.price}',
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    if (product.originalPrice != null)
-                      Text(
-                        '\$${product.originalPrice}',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                          decoration: TextDecoration.lineThrough,
-                        ),
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                ElevatedButton(
-                  onPressed: () {
-                    /* Add to cart */
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    minimumSize: const Size(120, 40),
-                  ),
-                  child: const Text(
-                    'Add to Cart',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ).pOnly(bottom: 8),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

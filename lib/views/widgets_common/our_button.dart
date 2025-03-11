@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-Widget ourButton({onPress, color, textColor, String? title}) {
+Widget ourButton({
+  required VoidCallback onPress,
+  required Color color,
+  required Color textColor,
+  required String title,
+  Icon? icon, // Make icon optional
+}) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: color,
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
     onPressed: onPress,
-    child: title!.text.color(textColor).fontFamily(bold).make(),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (icon != null) ...[
+          // Conditionally show icon
+          icon,
+          8.widthBox,
+        ],
+        title.text.color(textColor).fontFamily(bold).size(16).make(),
+      ],
+    ),
   );
 }

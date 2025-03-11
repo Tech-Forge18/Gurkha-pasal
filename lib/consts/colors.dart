@@ -11,6 +11,7 @@ const Color lightGolden = Color(0xfffEEAD1);
 const Color primaryColor = Colors.red;
 const Color darkGrey = Colors.grey;
 const Color greyColor = Color(0xFF757575);
+const bgColor = Color.fromARGB(255, 124, 123, 123);
 // Primary brand colors
 
 const Color secondaryColor = Color.fromRGBO(255, 168, 0, 1); // Orange accent

@@ -14,7 +14,12 @@ class ProfileScreen extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: Colors.grey[100], // Light background like Daraz
+      backgroundColor: const Color.fromARGB(
+        255,
+        245,
+        245,
+        245,
+      ), // Light background like Daraz
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -23,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
               // User Info Section
               Container(
                 padding: const EdgeInsets.all(16),
-                color: Colors.white,
+                color: const Color.fromARGB(255, 255, 255, 255),
                 child: Row(
                   children: [
                     const CircleAvatar(
@@ -55,11 +60,6 @@ class ProfileScreen extends StatelessWidget {
                                 .color(fontGrey)
                                 .make(),
                             10.widthBox,
-                            "3 Vouchers".text
-                                .fontFamily(regular)
-                                .size(14)
-                                .color(fontGrey)
-                                .make(),
                           ],
                         ),
                       ],

@@ -15,7 +15,7 @@ class ProductScreen extends StatelessWidget {
     final ProductController productController = Get.find<ProductController>();
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(255, 192, 190, 190),
       appBar: AppBar(
         title: "Product Listing".text.fontFamily(bold).white.make(),
         backgroundColor: redColor,
