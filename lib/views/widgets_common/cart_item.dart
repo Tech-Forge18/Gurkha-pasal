@@ -1,112 +1,143 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:gurkha_pasal/views/product_screen/product_details.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CartItemCard extends StatelessWidget {
   final Map<String, dynamic> item;
   final VoidCallback onRemove;
+  final ValueChanged<bool> onSelect;
+  final VoidCallback onIncrease;
+  final VoidCallback onDecrease;
 
-  const CartItemCard({super.key, required this.item, required this.onRemove});
+  const CartItemCard({
+    super.key,
+    required this.item,
+    required this.onRemove,
+    required this.onSelect,
+    required this.onIncrease,
+    required this.onDecrease,
+  });
 
   @override
   Widget build(BuildContext context) {
-    print("Item map: $item"); // Debug print to see the data
-
     return Card(
       color: whiteColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(12),
-                ),
-                child: Image.network(
-                  item["imageUrl"] ?? "",
-                  height: 120,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      height: 120,
-                      color: lightGrey,
-                      child: Center(
-                        child: Icon(Icons.image, color: darkFontGrey),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              if (item["discount"] != null && item["discount"] > 0)
-                Positioned(
-                  top: 8,
-                  left: 8,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: greenColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: "${item["discount"]}% OFF".text.white.make(),
-                  ),
-                ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: IconButton(
-                  icon: Icon(Icons.close, color: whiteColor),
-                  onPressed: onRemove,
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                (item["name"] ?? "No name").text
-                    .color(darkFontGrey)
-                    .fontFamily(semibold)
-                    .make(),
-                8.heightBox,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    "\$${item["price"] ?? 0}".text
-                        .color(primaryColor)
-                        .fontFamily(bold)
-                        .make(),
-                    if (item["originalPrice"] != null)
-                      "\$${item["originalPrice"]}".text
-                          .color(fontGrey)
-                          .lineThrough
-                          .make(),
-                  ],
-                ),
-                8.heightBox,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    "Qty: ${item["quantity"] ?? 0}".text.make(),
-                    IconButton(
-                      icon: Icon(Icons.delete, color: redColor),
-                      onPressed: onRemove,
-                    ),
-                  ],
-                ),
-              ],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      margin: const EdgeInsets.only(bottom: 8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Checkbox
+            Checkbox(
+              value: item["selected"] ?? false,
+              onChanged: (value) => onSelect(value ?? false),
+              activeColor: redColor,
             ),
-          ),
-        ],
+            8.widthBox,
+            // Product Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                item["imageUrl"] ?? "",
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 80,
+                    height: 80,
+                    color: lightGrey,
+                    child: const Center(
+                      child: Icon(Icons.image, color: darkFontGrey),
+                    ),
+                  );
+                },
+              ),
+            ),
+            16.widthBox,
+            // Product Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Product Name
+                  Text(
+                    item["name"] ?? "",
+                    style: const TextStyle(
+                      color: darkFontGrey,
+                      fontFamily: semibold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  4.heightBox,
+                  // Display selected options
+                  if (item["selectedColor"] != null)
+                    Text(
+                      "Color Family: ${item["selectedColor"]}",
+                      style: const TextStyle(color: fontGrey, fontSize: 12),
+                    ),
+                  8.heightBox,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          if (item["originalPrice"] != null)
+                            Text(
+                              "Rs. ${item["originalPrice"]}",
+                              style: const TextStyle(
+                                color: fontGrey,
+                                decoration: TextDecoration.lineThrough,
+                                fontSize: 12,
+                              ),
+                            ),
+                          8.widthBox,
+                          Text(
+                            "Rs. ${item["price"]}",
+                            style: const TextStyle(
+                              color: redColor,
+                              fontFamily: bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.remove,
+                              color: darkFontGrey,
+                              size: 20,
+                            ),
+                            onPressed: onDecrease,
+                          ),
+                          Text(
+                            "${item["quantity"]}",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: darkFontGrey,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.add,
+                              color: darkFontGrey,
+                              size: 20,
+                            ),
+                            onPressed: onIncrease,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

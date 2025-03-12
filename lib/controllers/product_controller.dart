@@ -25,6 +25,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1572635196237-14b3f281503f",
         category: "Electronics",
         discount: 0,
+
+        colors: [],
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "2",
@@ -35,6 +38,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1572635196237-14b3f281503f",
         category: "Fitness",
         discount: 15,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "3",
@@ -45,6 +51,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
         category: "Clothing",
         discount: 10,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "4",
@@ -54,6 +63,9 @@ class ProductController extends GetxController {
         imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",
         category: "Electronics",
         discount: 25,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "5",
@@ -64,6 +76,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Home & Kitchen",
         discount: 0,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "6",
@@ -74,6 +89,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
         category: "Footwear",
         discount: 30,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "7",
@@ -83,6 +101,9 @@ class ProductController extends GetxController {
         imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62",
         category: "Accessories",
         discount: 20,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "8",
@@ -93,6 +114,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Home & Kitchen",
         discount: 15,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "9",
@@ -103,6 +127,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Fitness",
         discount: 10,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "10",
@@ -113,6 +140,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1572635196237-14b3f281503f",
         category: "Accessories",
         discount: 25,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "11",
@@ -123,6 +153,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Electronics",
         discount: 20,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "12",
@@ -133,6 +166,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Home & Kitchen",
         discount: 15,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "13",
@@ -143,6 +179,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
         category: "Clothing",
         discount: 10,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "14",
@@ -153,6 +192,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Electronics",
         discount: 25,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "15",
@@ -163,6 +205,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Home & Kitchen",
         discount: 20,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "16",
@@ -173,6 +218,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
         category: "Footwear",
         discount: 15,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "17",
@@ -183,6 +231,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Accessories",
         discount: 10,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "18",
@@ -193,6 +244,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Fitness",
         discount: 30,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "19",
@@ -203,6 +257,9 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Electronics",
         discount: 20,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
       Product(
         id: "20",
@@ -213,11 +270,16 @@ class ProductController extends GetxController {
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
         category: "Home & Kitchen",
         discount: 15,
+        colors: [],
+
+        storageOptions: [], // Empty list for colors
       ),
     ]);
 
     exclusiveDeals.assignAll(
-      products.where((product) => product.discount! > 0).toList(),
+      products
+          .where((product) => product.discount != null && product.discount! > 0)
+          .toList(),
     );
   }
 }

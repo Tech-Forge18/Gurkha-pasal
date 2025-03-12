@@ -4,6 +4,7 @@ import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:gurkha_pasal/consts/images.dart';
 import 'package:gurkha_pasal/controllers/cart_controller.dart';
 import 'package:gurkha_pasal/views/home_screen/home.dart';
+import 'package:gurkha_pasal/views/widgets_common/cart_item.dart';
 import 'package:gurkha_pasal/views/widgets_common/our_button.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -17,22 +18,37 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            "My Cart".text.fontFamily(bold).color(whiteColor).make(),
-            const SizedBox(width: 8),
-            Image.asset(icCart, width: 24, color: whiteColor),
+            Row(
+              children: [
+                "My Cart".text.fontFamily(bold).color(darkFontGrey).make(),
+                8.widthBox,
+                const Icon(Icons.location_on, color: redColor, size: 18),
+                4.widthBox,
+                "Shankhamul Area, Kathmandu Me...".text
+                    .color(fontGrey)
+                    .size(12)
+                    .make(),
+              ],
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete, color: redColor),
+              onPressed: () {
+                cartController.clearCart();
+              },
+            ),
           ],
         ),
-        backgroundColor: redColor,
+        backgroundColor: whiteColor,
         elevation: 0,
-        centerTitle: true,
       ),
       body: SafeArea(
         child: Obx(() {
           if (cartController.cartItems.isEmpty) {
-            return EmptyCartView();
+            return const EmptyCartView();
           }
           return Column(
             children: [
@@ -54,7 +70,7 @@ class CartScreen extends StatelessWidget {
                 ),
               ),
               VoucherCodeSection(),
-              CheckoutSection(total: cartController.total.value),
+              CheckoutSection(total: cartController.total),
             ],
           );
         }),
@@ -64,6 +80,8 @@ class CartScreen extends StatelessWidget {
 }
 
 class EmptyCartView extends StatelessWidget {
+  const EmptyCartView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -80,119 +98,7 @@ class EmptyCartView extends StatelessWidget {
           onPress: () => Get.offAll(() => const Home()),
         ).box.width(context.screenWidth * 0.8).make(),
       ],
-    );
-  }
-}
-
-class CartItemCard extends StatelessWidget {
-  final Map<String, dynamic> item;
-  final VoidCallback onRemove;
-  final ValueChanged<bool> onSelect;
-  final VoidCallback onIncrease;
-  final VoidCallback onDecrease;
-
-  const CartItemCard({
-    super.key,
-    required this.item,
-    required this.onRemove,
-    required this.onSelect,
-    required this.onIncrease,
-    required this.onDecrease,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: whiteColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.only(bottomMargin: 8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Checkbox(
-              value: item["selected"] ?? false,
-              onChanged: (value) => onSelect(value ?? false),
-              activeColor: primaryColor,
-            ),
-            8.widthBox,
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    item["imageUrl"] ?? "",
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 80,
-                        height: 80,
-                        color: lightGrey,
-                        child: Center(
-                          child: Icon(Icons.image, color: darkFontGrey),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: IconButton(
-                    icon: Icon(Icons.close, color: whiteColor),
-                    onPressed: onRemove,
-                  ),
-                ),
-              ],
-            ),
-            8.widthBox,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  (item["name"] ?? "").text
-                      .color(darkFontGrey)
-                      .fontFamily(semibold)
-                      .make(),
-                  4.heightBox,
-                  Row(
-                    children: [
-                      if (item["originalPrice"] != null)
-                        "\$${item["originalPrice"]}".text
-                            .color(fontGrey)
-                            .lineThrough
-                            .make(),
-                      8.widthBox,
-                      "\$${item["price"]}".text
-                          .color(primaryColor)
-                          .fontFamily(bold)
-                          .make(),
-                    ],
-                  ),
-                  8.heightBox,
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.remove, color: darkFontGrey),
-                        onPressed: onDecrease,
-                      ),
-                      "${item["quantity"]}".text.make(),
-                      IconButton(
-                        icon: Icon(Icons.add, color: darkFontGrey),
-                        onPressed: onIncrease,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    ).centered();
   }
 }
 
@@ -204,15 +110,50 @@ class VoucherCodeSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          "Enter Voucher Code".text.fontFamily(semibold).make(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.local_offer, color: redColor, size: 18),
+                  8.widthBox,
+                  "Vouchers".text
+                      .fontFamily(semibold)
+                      .color(darkFontGrey)
+                      .make(),
+                ],
+              ),
+              DropdownButton<String>(
+                value: "ALL",
+                items: [
+                  const DropdownMenuItem(value: "ALL", child: Text("ALL")),
+                  const DropdownMenuItem(
+                    value: "DISCOUNT",
+                    child: Text("DISCOUNT"),
+                  ),
+                  const DropdownMenuItem(
+                    value: "FREESHIP",
+                    child: Text("FREESHIP"),
+                  ),
+                ],
+                onChanged: (value) {},
+                underline: const SizedBox(),
+                icon: const Icon(Icons.arrow_drop_down, color: darkFontGrey),
+              ),
+            ],
+          ),
           8.heightBox,
           TextFormField(
             decoration: InputDecoration(
-              hintText: "Voucher Code",
+              hintText: "Enter Voucher Code",
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(color: lightGrey),
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 8,
+              ),
             ),
           ),
         ],
@@ -230,35 +171,38 @@ class CheckoutSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: whiteColor,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10),
-        ],
-      ),
+      color: whiteColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              "Total".text.fontFamily(semibold).make(),
-              "\$$total".text
-                  .color(primaryColor)
-                  .fontFamily(bold)
-                  .size(20)
-                  .make(),
+              Row(
+                children: [
+                  "Subtotal:".text
+                      .fontFamily(semibold)
+                      .color(darkFontGrey)
+                      .make(),
+                  4.widthBox,
+                  "Rs. $total".text
+                      .color(redColor)
+                      .fontFamily(bold)
+                      .size(16)
+                      .make(),
+                ],
+              ),
+              "Rs. 0".text.color(greenColor).fontFamily(bold).size(14).make(),
             ],
           ),
           ourButton(
-            color: redColor,
-            title: "Checkout",
+            color: orangeColor,
+            title: "Check Out",
             textColor: whiteColor,
             onPress: () {
               Get.snackbar("Checkout", "Payment gateway integration pending");
             },
-          ).box.width(150).make(),
+          ).box.width(120).make(),
         ],
       ),
     );

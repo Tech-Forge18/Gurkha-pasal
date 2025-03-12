@@ -16,6 +16,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize CartController using Get.find
     final CartController cartController = Get.find<CartController>();
 
     return Scaffold(
@@ -234,13 +235,16 @@ class ProductDetailsScreen extends StatelessWidget {
                     title: addToCart,
                     textColor: whiteColor,
                     onPress: () {
-                      cartController.addToCart(product);
-                      Get.snackbar(
-                        "Success",
-                        "${product.name} added to cart!",
-                        snackPosition: SnackPosition.BOTTOM,
-                        backgroundColor: redColor,
-                        colorText: whiteColor,
+                      // Show modal bottom sheet for selection
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder:
+                            (context) => ProductSelectionBottomSheet(
+                              product: product,
+                              cartController: cartController,
+                            ),
                       );
                     },
                     icon: const Icon(Icons.shopping_cart, color: whiteColor),
@@ -272,6 +276,187 @@ class ProductDetailsScreen extends StatelessWidget {
         8.widthBox,
         text.text.color(darkFontGrey).size(14).make(),
       ],
+    );
+  }
+}
+
+// New Widget for Bottom Sheet
+class ProductSelectionBottomSheet extends StatefulWidget {
+  final Product product;
+  final CartController cartController;
+
+  const ProductSelectionBottomSheet({
+    super.key,
+    required this.product,
+    required this.cartController,
+  });
+
+  @override
+  _ProductSelectionBottomSheetState createState() =>
+      _ProductSelectionBottomSheetState();
+}
+
+class _ProductSelectionBottomSheetState
+    extends State<ProductSelectionBottomSheet> {
+  String selectedColor = '';
+  int quantity = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set default selection
+    selectedColor =
+        widget.product.colors?.isNotEmpty == true
+            ? widget.product.colors![0]
+            : '';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header with Close Icon
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox.shrink(), // Placeholder for alignment
+              IconButton(
+                icon: const Icon(Icons.close, color: darkFontGrey),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+          // Product Header
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  widget.product.imageUrl,
+                  height: 80,
+                  width: 80,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 80,
+                      width: 80,
+                      color: Colors.grey,
+                      child: const Icon(Icons.error, color: whiteColor),
+                    );
+                  },
+                ),
+              ),
+              16.widthBox,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  widget.product.name.text.fontFamily(bold).size(16).make(),
+                  8.heightBox,
+                  "₹${widget.product.price}".text.color(fontGrey).make(),
+                ],
+              ),
+            ],
+          ),
+          24.heightBox,
+
+          // Color Selection
+          if (widget.product.colors?.isNotEmpty == true) ...[
+            "Color Family".text.fontFamily(semibold).size(16).make(),
+            8.heightBox,
+            Wrap(
+              spacing: 8.0,
+              children:
+                  widget.product.colors!.map((color) {
+                    return ChoiceChip(
+                      label: color.text.make(),
+                      selected: selectedColor == color,
+                      onSelected: (selected) {
+                        setState(() {
+                          selectedColor = color;
+                        });
+                      },
+                      selectedColor: redColor,
+                      labelStyle: TextStyle(
+                        color:
+                            selectedColor == color ? whiteColor : darkFontGrey,
+                      ),
+                    );
+                  }).toList(),
+            ),
+            24.heightBox,
+          ],
+
+          // Quantity Selection
+          "Quantity".text.fontFamily(semibold).size(16).make(),
+          8.heightBox,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed:
+                    quantity > 1
+                        ? () {
+                          setState(() {
+                            quantity--;
+                          });
+                        }
+                        : null,
+                icon: const Icon(Icons.remove),
+              ),
+              quantity.text.size(16).make(),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    quantity++;
+                  });
+                },
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
+          24.heightBox,
+
+          // Add to Cart Button (Full Width)
+          SizedBox(
+            width: double.infinity,
+            child: ourButton(
+              color: redColor,
+              title: "Add to Cart",
+              textColor: whiteColor,
+              onPress: () {
+                // Prepare product details with selected options
+                final productMap =
+                    widget.product.toMap()
+                      ..['selectedColor'] = selectedColor
+                      ..['quantity'] = quantity;
+
+                // Add to cart
+                widget.cartController.addToCart(productMap);
+
+                // Show success message
+                Get.snackbar(
+                  "Success",
+                  "${widget.product.name} added to cart!",
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: redColor,
+                  colorText: whiteColor,
+                );
+
+                // Close the bottom sheet
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

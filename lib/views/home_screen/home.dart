@@ -4,6 +4,7 @@ import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:gurkha_pasal/views/cart_screen/cart.dart';
 import 'package:gurkha_pasal/views/category_screen/category_screen.dart';
 import 'package:gurkha_pasal/views/home_screen/home_screen.dart';
+import 'package:gurkha_pasal/views/messages_screen/messages.dart'; // Import MessagesScreen
 import 'package:gurkha_pasal/views/profile_screen/profile.dart';
 
 // Define the HomeController
@@ -43,7 +44,7 @@ class Home extends StatelessWidget {
 
     var navBody = [
       const CategoryScreen(), // Index 0
-      const SizedBox(), // Placeholder for Messages (implement Messages screen)
+      const MessagesScreen(), // Index 1 (Messages)
       const HomeScreen(), // Index 2 (center)
       const CartScreen(), // Index 3
       const ProfileScreen(), // Index 4
@@ -55,7 +56,7 @@ class Home extends StatelessWidget {
         221,
         107,
         13,
-      ), // Explicitly set black background
+      ), // Explicitly set background
       body: Obx(() => navBody.elementAt(controller.currentNavIndex.value)),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
