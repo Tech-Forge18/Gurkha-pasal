@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gurkha_pasal/controllers//home_controller.dart';
+import 'package:gurkha_pasal/controllers/home_controller.dart';
+
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/ViewAll/round_image.dart';
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/circular_container.dart';
 
@@ -30,6 +31,7 @@ class PromoSlider extends StatelessWidget {
                   CircularContainer(
                     width: 20,
                     height: 4,
+                    radius: 2,
                     margine: const EdgeInsets.only(right: 10),
                     backgroundColor:
                         controller.carousalCurrentIndex.value == i

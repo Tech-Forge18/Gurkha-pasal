@@ -4,7 +4,11 @@ import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/cart_widg
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
     super.key,
+      this.title = 'Good Morning',
+      this.title2 = 'Ishwor',
   });
+  final String title;
+  final String title2;
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +17,13 @@ class HomeAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Good Morning,',
-            style: Theme.of(
+          title ,
+                    style: Theme.of(
               context,
             ).textTheme.labelMedium!.apply(color: Colors.grey),
           ),
           Text(
-            'Ishwor',
+            title2 ,
             style: Theme.of(
               context,
             ).textTheme.labelSmall!.apply(color: Colors.white),
