@@ -23,7 +23,7 @@ final String discount;
       child: Container(
         width: 180,
         // height: 250,
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
           backgroundBlendMode: BlendMode.darken,
           boxShadow: [
@@ -34,21 +34,22 @@ final String discount;
               offset: const Offset(0, 1), // changes position of shadow
             ),
           ],
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(16),
           color: Colors.orange,
         ),
         child: Column(
           children: [
             CircularContainer(
-              height: 145,
+              height: 150,
               padding: const EdgeInsets.all(0),
-              radius: 5,
+              radius: 16,
       
               backgroundColor: Colors.grey,
               // child: Image.asset(imgSs1),
               child: Stack(
                 children: [
                   RoundImage(
+                    borderRadius: 16,
                     width: 220,
                     height: 150,
                     imageUrl: img,
@@ -91,47 +92,53 @@ final String discount;
        ProductTitleText(title : name  ),
             const SizedBox(height: 5),
       
-            Row(
-              children: [
-                Text(brand,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                 style: Theme.of(context).textTheme.labelMedium
-                ),
-                const SizedBox(width: 5),
-                const Icon(Iconsax.verify5, color: Colors.blue, size: 15),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  Text(brand,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                   style: Theme.of(context).textTheme.labelMedium
+                  ),
+                  const SizedBox(width: 5),
+                  const Icon(Iconsax.verify5, color: Colors.blue, size: 15),
+                ],
+              ),
             ),
       
-            Row(
-                mainAxisAlignment : MainAxisAlignment.spaceBetween ,
-              children: [
-                Text(price,
-                maxLines: 1,
-                
-                overflow: TextOverflow.ellipsis,
-                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                 ),
-         
-                ),
-                Container (
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Row(
+                  mainAxisAlignment : MainAxisAlignment.spaceBetween ,
+                children: [
+                  Text(price,
+                  maxLines: 1,
+                  
+                  overflow: TextOverflow.ellipsis,
+                   style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                   ),
+                       
                   ),
-                  child : const SizedBox(
-                    width: 40,
-                    height: 30,
-                    child: Center(
-                      child: Icon(Iconsax.add, color: Colors.white, ),
+                  Container (
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
                     ),
+                    child : const SizedBox(
+                      width: 40,
+                      height: 30,
+                      child: Center(
+                        child: Icon(Iconsax.add, color: Colors.white, ),
+                      ),
+                    )
                   )
-                )
-             
-              ],
+               
+                ],
+              ),
             )
       
       

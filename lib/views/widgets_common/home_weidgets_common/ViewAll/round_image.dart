@@ -13,7 +13,7 @@ class RoundImage extends StatelessWidget {
     this.padding,
     this.isNetworkImage = false,
     this.onPressed,
-    this.borderRadius = 16,
+    required this.borderRadius
   });
 
   final double? width, height;
