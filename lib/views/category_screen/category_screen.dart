@@ -9,10 +9,10 @@ import 'package:gurkha_pasal/views/category_screen/brandcards.dart';
 import 'package:gurkha_pasal/views/category_screen/gird_layout.dart';
 import 'package:gurkha_pasal/views/category_screen/product.dart';
 // import 'package:gurkha_pasal/views/category_screen/product_card.dart'; // Ensure this import is correct
-import 'package:gurkha_pasal/views/category_screen/searchbar.dart';
+
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/Categories/cart.dart';
 
-import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/ViewAll/Section_hearding.dart';
+
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/appBar_widgets/homeappbar.dart';
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/appBar_widgets/searchContainer.dart';
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/circular_container.dart';
@@ -40,40 +40,83 @@ class _CategoryScreenState extends State<CategoryScreen> {
   // Separate data for CategoryWithProduct
   final Map<String, List<Product>> categoryProductsData = {
     'Shoes': [
-      Product(
-        id: '1',
-        name: 'Adidas Shoes',
-        description: 'Comfortable and stylish Adidas shoes.',
-        price: 89.99,
-        imageUrl: imgB1,
-        category: 'Shoes',
-        originalPrice: 120.00,
-        discount: 25, // 25% discount
-      ),
-      Product(
-        id: '2',
-        name: 'Nike Running Shoes',
-        description: 'Lightweight and durable running shoes.',
-        price: 99.99,
-        imageUrl: imgB2,
-        category: 'Shoes',
-        originalPrice: 130.00,
-        discount: 23, // 23% discount
-      ),
+     
+    Product(
+  id: '1',
+  name: 'Adidas Sports Sneakers',
+  description: 'High-performance Adidas sneakers perfect for any activity.',
+  price: 85.99,
+  imageUrl: imgP6,
+  category: 'Shoes',
+  originalPrice: 110.00,
+  discount: 22, // 22% discount
+),
+Product(
+  id: '2',
+  name: 'Adidas Classic Shoes',
+  description: 'Timeless Adidas design, offering comfort and style.',
+  price: 79.99,
+  imageUrl: imgSh1,
+  category: 'Shoes',
+  originalPrice: 100.00,
+  discount: 20, // 20% discount
+),
+Product(
+  id: '3',
+  name: 'Nike Air Max',
+  description: 'Nike Air Max with advanced cushioning and a sleek look.',
+  price: 95.99,
+  imageUrl: imgSh2,
+  category: 'Shoes',
+  originalPrice: 125.00,
+  discount: 24, // 24% discount
+),
+Product(
+  id: '4',
+  name: 'Nike ZoomX Vaporfly',
+  description: 'Ultimate racing shoes designed for speed and stability.',
+  price: 104.99,
+  imageUrl: imgSh3,
+  category: 'Shoes',
+  originalPrice: 140.00,
+  discount: 25, // 25% discount
+),
+Product(
+  id: '5',
+  name: 'Nike Revolution 5',
+  description: 'Nike Revolution 5 shoes offering lightweight cushioning.',
+  price: 89.99,
+  imageUrl: imgSh4,
+  category: 'Shoes',
+  originalPrice: 115.00,
+  discount: 22, // 22% discount
+),
+Product(
+  id: '6',
+  name: 'Nike Pegasus Trail',
+  description: 'Nike Pegasus shoes built for trail running with durable grip.',
+  price: 102.99,
+  imageUrl: imgSh5,
+  category: 'Shoes',
+  originalPrice: 135.00,
+  discount: 24, // 24% discount
+),
+
+      
     ],
     'Clothes': [
       Product(
-        id: '3',
+        id: '7',
         name: 'Nike T-Shirt',
         description: 'Breathable cotton t-shirt.',
         price: 29.99,
-        imageUrl: imgB4,
+        imageUrl: imgFc1,
         category: 'Clothes',
         originalPrice: 45.00,
         discount: 33, // 33% discount
       ),
       Product(
-        id: '4',
+        id: '8',
         name: 'Adidas Jacket',
         description: 'Warm and comfortable sports jacket.',
         price: 79.99,
@@ -82,6 +125,41 @@ class _CategoryScreenState extends State<CategoryScreen> {
         originalPrice: 100.00,
         discount: 20, // 20% discount
       ),
+        Product(
+        id: '9',
+        name: 'Adidas Jacket',
+        description: 'Warm and comfortable sports jacket.',
+        price: 79.99,
+        imageUrl: imgB5,
+        category: 'Clothes',
+        originalPrice: 100.00,
+        discount: 20, // 20% discount
+      ),
+        Product(
+        id: '10',
+        name: 'Adidas Jacket',
+        description: 'Warm and comfortable sports jacket.',
+        price: 79.99,
+        imageUrl: imgB5,
+        category: 'Clothes',
+        originalPrice: 100.00,
+        discount: 20, // 20% discount
+      ),
+       Product(
+        id: '11',
+        name: 'Adidas Jacket',
+        description: 'Warm and comfortable sports jacket.',
+        price: 79.99,
+        imageUrl: imgB5,
+        category: 'Clothes',
+        originalPrice: 100.00,
+        discount: 20, // 20% discount
+      ),
+      
+      
+
+      
+
     ],
     // Add other categories here...
   };
@@ -220,8 +298,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         mainAxisExtent: 240,
-                                        crossAxisSpacing: 10,
-                                        mainAxisSpacing: 10,
+                                        crossAxisSpacing: 12,
+                                        mainAxisSpacing: 12,
                                         childAspectRatio: 0.7,
                                       ),
                                   itemCount: currentTabData.length,
