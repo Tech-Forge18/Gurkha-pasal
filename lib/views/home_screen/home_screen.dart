@@ -7,7 +7,6 @@ import 'package:gurkha_pasal/consts/images.dart';
 import 'package:gurkha_pasal/controllers/product_controller.dart';
 import 'package:gurkha_pasal/views/exclusive_deal_screen/exclusive_deals_screen.dart';
 import 'package:gurkha_pasal/views/product_screen/product_listing.dart';
-import 'package:gurkha_pasal/views/product_screen/product_details.dart';
 import 'package:gurkha_pasal/views/widgets_common/exclusive_product_card.dart';
 import 'package:gurkha_pasal/views/widgets_common/featured_product.dart';
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/Categories/hoem_categories.dart';
@@ -17,8 +16,154 @@ import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/appBar_wi
 import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/primary_header_container.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Show the popup when the screen is loaded
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showPromoPopup();
+    });
+  }
+
+  void _showPromoPopup() {
+    Get.dialog(
+      AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        content: Container(
+          width: double.maxFinite,
+          height: 400,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(0, 120, 255, 1), // Blue gradient start
+                Color.fromRGBO(255, 165, 0, 1), // Orange gradient end
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          child: Stack(
+            children: [
+              // Background Image or Placeholder
+              Center(
+                child: Image.asset(
+                  imgSs1, // Placeholder image; replace with a promotional image
+                  fit: BoxFit.contain,
+                  height: 300,
+                ),
+              ),
+              // Text Overlays
+              Positioned(
+                top: 16,
+                left: 16,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "GURKHA PASAL",
+                      style: TextStyle(
+                        fontFamily: bold,
+                        fontSize: 20,
+                        color: whiteColor,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black26,
+                            offset: const Offset(2, 2),
+                            blurRadius: 4,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      "Presents Gurkha Mela",
+                      style: TextStyle(
+                        fontFamily: semibold,
+                        fontSize: 16,
+                        color: whiteColor,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black26,
+                            offset: const Offset(2, 2),
+                            blurRadius: 4,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 90,
+                left: 16,
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: orangeColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        "UP TO 60% OFF",
+                        style: TextStyle(
+                          fontFamily: bold,
+                          fontSize: 16,
+                          color: whiteColor,
+                        ),
+                      ),
+                    ),
+                    8.widthBox,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: orangeColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        "NEW ARRIVALS",
+                        style: TextStyle(
+                          fontFamily: bold,
+                          fontSize: 16,
+                          color: whiteColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Close Button
+              Positioned(
+                top: 8,
+                right: 8,
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: whiteColor),
+                  onPressed: () => Get.back(),
+                ),
+              ),
+              // Add to Cart Button
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true, // Allow tapping outside to dismiss
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +179,7 @@ class HomeScreen extends StatelessWidget {
               height: 370,
               child: Column(
                 children: [
-                  const HomeAppBar( title: 'Good Morning', title2: 'Ishowr'),
+                  const HomeAppBar(title: 'Good Morning', title2: 'Ishowr'),
                   SearchContainer(
                     text: 'Search products, brands...',
                     backgroundColor: whiteColor,

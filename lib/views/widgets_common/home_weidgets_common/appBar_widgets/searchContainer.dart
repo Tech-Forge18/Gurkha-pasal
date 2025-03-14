@@ -8,13 +8,15 @@ class SearchContainer extends StatelessWidget {
     this.icon = Iconsax.search_normal,
     this.showBackground = true,
     this.showBorder = true,
-    required Color backgroundColor,
-    required Icon prefixIcon,
+    required this.backgroundColor,
+    required this.prefixIcon,
   });
 
   final String text;
   final IconData? icon;
   final bool showBackground, showBorder;
+  final Color backgroundColor;
+  final Icon prefixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,13 @@ class SearchContainer extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: showBackground ? Colors.white : Colors.white,
+          color: showBackground ? backgroundColor : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: showBorder ? Border.all(color: Colors.grey) : null,
         ),
         child: Row(
           children: [
-            Icon(Iconsax.search_normal, color: Colors.grey),
+            prefixIcon, // Using the provided prefixIcon instead of hardcoded Icon
             const SizedBox(width: 16),
             Text(text, style: Theme.of(context).textTheme.bodySmall),
           ],

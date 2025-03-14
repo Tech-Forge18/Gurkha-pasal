@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
-import 'package:gurkha_pasal/consts/images.dart';
 import 'package:gurkha_pasal/controllers/message_controller.dart';
 import 'package:gurkha_pasal/views/widgets_common/message_card.dart';
-import 'package:gurkha_pasal/views/widgets_common/our_button.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MessagesScreen extends StatelessWidget {

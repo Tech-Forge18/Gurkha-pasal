@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gurkha_pasal/controllers/product_controller.dart';
 import 'package:gurkha_pasal/views/widgets_common/exclusive_product_card.dart';
-import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ExclusiveDealsScreen extends StatelessWidget {
