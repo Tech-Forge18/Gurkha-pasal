@@ -50,8 +50,9 @@ final String discount;
                 children: [
                   RoundImage(
                     width: 220,
+                    height: 150,
                     imageUrl: img,
-                    applyImageRadius: true,
+                    applyImageRadius: true,  
                     fit: BoxFit.cover,
                     padding: const EdgeInsets.all(0),
                   ),
@@ -59,6 +60,7 @@ final String discount;
                     top: 12,
                     left: 10,
                     child: CircularContainer(
+               
                       radius: 10,
                       backgroundColor: Colors.orange.withOpacity(0.8),
                       padding: const EdgeInsets.symmetric(
@@ -79,7 +81,7 @@ final String discount;
                     top: 0,
                     right: 0,
       
-                    child: CircularIcon(icon: Iconsax.heart5, color: Colors.red),
+                    child: CircularIcon(height: 45, width: 45, icon: Iconsax.heart5, color: Colors.red),
                   ),
                 ],
               ),
