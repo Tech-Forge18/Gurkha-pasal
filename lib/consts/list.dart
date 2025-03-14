@@ -1,4 +1,5 @@
 // lib/consts/lists.dart
+import 'package:gurkha_pasal/consts/images.dart';
 
 /// List of static product data for initial app testing.
 /// Can be used as a fallback or seed data for ProductController.
@@ -41,7 +42,7 @@ const List<String> categoryList = [
 
 /// List of social media icon paths for LoginScreen.
 const List<String> socialIconList = [
-  "assets/icons/google.png",
-  "assets/icons/facebook.png",
-  "assets/icons/twitter.png",
+  icGoogleLogo,
+  icFacebookLogo,
+  icTwitterLogo,
 ];

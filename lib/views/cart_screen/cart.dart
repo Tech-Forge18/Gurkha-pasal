@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:gurkha_pasal/consts/images.dart';
 import 'package:gurkha_pasal/controllers/cart_controller.dart';
+// New import for Profile screen
 import 'package:gurkha_pasal/views/home_screen/home.dart';
 import 'package:gurkha_pasal/views/widgets_common/cart_item.dart';
 import 'package:gurkha_pasal/views/widgets_common/our_button.dart';
@@ -16,31 +17,51 @@ class CartScreen extends StatelessWidget {
     final CartController cartController = Get.find<CartController>();
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: const Color.fromARGB(
+        255,
+        252,
+        249,
+        249,
+      ), // Updated to use bgColor from consts.dart
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false, // We will manually add the back arrow
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                "My Cart".text.fontFamily(bold).color(darkFontGrey).make(),
-                8.widthBox,
-                const Icon(Icons.location_on, color: redColor, size: 18),
-                4.widthBox,
-                "Shankhamul Area, Kathmandu Me...".text
-                    .color(fontGrey)
-                    .size(12)
+                "My Cart".text
+                    .fontFamily(bold)
+                    .color(
+                      const Color.fromARGB(255, 7, 7, 7),
+                    ) // Updated to use darkFontGrey
                     .make(),
+                8.widthBox,
               ],
             ),
-            IconButton(
-              icon: const Icon(Icons.delete, color: redColor),
-              onPressed: () {
-                cartController.clearCart();
-              },
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.delete,
+                    color: primaryColor,
+                  ), // Updated to use primaryColor
+                  onPressed: () {
+                    cartController.clearCart();
+                  },
+                ),
+              ],
             ),
           ],
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color.fromARGB(255, 36, 34, 34),
+          ), // Back arrow
+          onPressed: () {
+            Get.off(() => const Home()); // Navigate to Home screen
+          },
         ),
         backgroundColor: whiteColor,
         elevation: 0,
@@ -69,7 +90,6 @@ class CartScreen extends StatelessWidget {
                   },
                 ),
               ),
-              VoucherCodeSection(),
               CheckoutSection(total: cartController.total),
             ],
           );
@@ -87,9 +107,18 @@ class EmptyCartView extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(icCart, width: 80, color: whiteColor),
+        Image.asset(
+          icCart,
+          width: 80,
+          color: primaryColor, // Updated to use primaryColor
+        ),
         16.heightBox,
-        "Your cart is empty".text.size(18).color(whiteColor).make(),
+        "Your cart is empty".text
+            .size(18)
+            .color(
+              const Color.fromARGB(255, 10, 5, 5),
+            ) // Updated to use darkFontGrey
+            .make(),
         16.heightBox,
         ourButton(
           color: orangeColor,
@@ -99,66 +128,6 @@ class EmptyCartView extends StatelessWidget {
         ).box.width(context.screenWidth * 0.8).make(),
       ],
     ).centered();
-  }
-}
-
-class VoucherCodeSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.local_offer, color: redColor, size: 18),
-                  8.widthBox,
-                  "Vouchers".text
-                      .fontFamily(semibold)
-                      .color(darkFontGrey)
-                      .make(),
-                ],
-              ),
-              DropdownButton<String>(
-                value: "ALL",
-                items: [
-                  const DropdownMenuItem(value: "ALL", child: Text("ALL")),
-                  const DropdownMenuItem(
-                    value: "DISCOUNT",
-                    child: Text("DISCOUNT"),
-                  ),
-                  const DropdownMenuItem(
-                    value: "FREESHIP",
-                    child: Text("FREESHIP"),
-                  ),
-                ],
-                onChanged: (value) {},
-                underline: const SizedBox(),
-                icon: const Icon(Icons.arrow_drop_down, color: darkFontGrey),
-              ),
-            ],
-          ),
-          8.heightBox,
-          TextFormField(
-            decoration: InputDecoration(
-              hintText: "Enter Voucher Code",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: lightGrey),
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 8,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 
@@ -186,7 +155,7 @@ class CheckoutSection extends StatelessWidget {
                       .make(),
                   4.widthBox,
                   "Rs. $total".text
-                      .color(redColor)
+                      .color(primaryColor) // Updated to use primaryColor
                       .fontFamily(bold)
                       .size(16)
                       .make(),

@@ -16,31 +16,41 @@ class ExclusiveDealsScreen extends StatelessWidget {
       appBar: AppBar(
         title:
             "Exclusive Deals".text
-                .color(const Color.fromARGB(255, 236, 234, 234))
+                .color(const Color.fromARGB(255, 5, 5, 5))
                 .make(),
-        backgroundColor: const Color.fromRGBO(239, 104, 8, 1),
+        backgroundColor: const Color.fromARGB(255, 255, 249, 244),
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
-            color: const Color.fromARGB(255, 12, 12, 12),
+            color: Color.fromARGB(255, 27, 27, 27),
           ),
           onPressed: () => Get.back(),
         ),
       ),
-      body: Obx(
-        () => GridView.builder(
-          padding: const EdgeInsets.all(16),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            childAspectRatio: 0.7,
+      body: Container(
+        color: const Color.fromARGB(
+          255,
+          221,
+          212,
+          212,
+        ), // Set the background color for the card section
+        child: Obx(
+          () => GridView.builder(
+            padding: const EdgeInsets.all(16),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              childAspectRatio: 0.7,
+            ),
+            itemCount: controller.exclusiveDeals.length,
+            itemBuilder: (context, index) {
+              return ExclusiveDealCard(
+                product: controller.exclusiveDeals[index],
+              );
+            },
           ),
-          itemCount: controller.exclusiveDeals.length,
-          itemBuilder: (context, index) {
-            return ExclusiveDealCard(product: controller.exclusiveDeals[index]);
-          },
         ),
       ),
     );
