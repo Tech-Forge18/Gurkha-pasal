@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
     ];
 
     var navBody = [
-      const CategoryScreen(), // Index 0
+       CategoryScreen(), // Index 0
       const MessagesScreen(), // Index 1 (Messages)
       const HomeScreen(), // Index 2 (center)
       const CartScreen(), // Index 3

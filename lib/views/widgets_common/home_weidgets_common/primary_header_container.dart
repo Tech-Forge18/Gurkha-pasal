@@ -7,9 +7,10 @@ import 'package:gurkha_pasal/views/widgets_common/home_weidgets_common/curve_edg
 
 class PrimaryHeaderWidgets extends StatelessWidget {
   const PrimaryHeaderWidgets({
-    super.key, required this.child,
+    super.key, required this.child, required this.height,
   });
   final Widget child;
+  final double height ;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class PrimaryHeaderWidgets extends StatelessWidget {
             color: Colors.deepOrange,
             padding: const EdgeInsets.all(0),
             child: SizedBox(
-              height: 350,
+              height: height,
               child: Stack(
     children: [
       Positioned(
@@ -26,6 +27,9 @@ class PrimaryHeaderWidgets extends StatelessWidget {
         right: -250,
         child: CircularContainer(
           backgroundColor: whiteColor.withOpacity(0.1),
+          height: 350,
+          width: 350,
+          radius: 350,
         ),
       ),
       Positioned(
@@ -33,6 +37,9 @@ class PrimaryHeaderWidgets extends StatelessWidget {
         right: -300,
         child: CircularContainer(
           backgroundColor: whiteColor.withOpacity(0.1),
+          height: 350,
+          width: 350,
+          radius: 350,
         ),
       ),
       child ,

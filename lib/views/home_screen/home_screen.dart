@@ -31,9 +31,10 @@ class HomeScreen extends StatelessWidget {
           children: [
             // Header Section
             PrimaryHeaderWidgets(
+              height: 370,
               child: Column(
                 children: [
-                  const HomeAppBar(),
+                  const HomeAppBar( title: 'Good Morning', title2: 'Ishowr'),
                   SearchContainer(
                     text: 'Search products, brands...',
                     backgroundColor: whiteColor,
