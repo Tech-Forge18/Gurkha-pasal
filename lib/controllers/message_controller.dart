@@ -1,45 +1,58 @@
 import 'package:get/get.dart';
-import 'package:gurkha_pasal/models/message.dart';
+
+class Message {
+  final String title;
+  final String subtitle;
+  final String timestamp;
+  final String type;
+  final bool isRead;
+
+  Message({
+    required this.title,
+    required this.subtitle,
+    required this.timestamp,
+    required this.type,
+    required this.isRead,
+  });
+}
 
 class MessageController extends GetxController {
+  var selectedTab = "Chats".obs;
   var messages = <Message>[].obs;
-  var selectedTab = "Promos".obs; // Default tab
 
   @override
   void onInit() {
     super.onInit();
-    loadMessages();
-  }
-
-  void loadMessages() {
+    // Sample messages (replace with actual data source)
     messages.assignAll([
       Message(
-        id: "1",
-        title: "Your Misha Deal is waiting",
-        description: "Glow like a pro with deals up to 10% OFF + Free Delivery",
-        imageUrl: "https://example.com/misha_deal.jpg",
-        timestamp: "Last 7 days",
-        category: "Promos",
+        title: "Support Team",
+        subtitle: "Your order has been shipped!",
+        timestamp: "Today",
+        type: "Orders",
+        isRead: false,
       ),
       Message(
-        id: "2",
-        title: "20% OFF on Your",
-        description:
-            "Head to the Gems Channel, shop your faves, and let the discounts roll",
-        imageUrl: "https://example.com/gems_channel.jpg",
-        timestamp: "Last 7 days",
-        category: "Promos",
+        title: "John Doe",
+        subtitle: "Hey, how are you?",
+        timestamp: "Today",
+        type: "Chats",
+        isRead: true,
       ),
       Message(
-        id: "3",
-        title: "HONOR X9b",
-        description: "The Toughest Smartphone in Nepal. Just Rs. 48,999",
-        imageUrl: "https://example.com/honor_x9b.jpg",
+        title: "Promo Alert",
+        subtitle: "50% off on your next purchase!",
         timestamp: "Yesterday",
-        category: "Promos",
-        tag: "HONOR",
+        type: "Promos",
+        isRead: false,
       ),
-      // Add more messages for other tabs if needed
+      Message(
+        title: "Activity",
+        subtitle: "You reviewed a product.",
+        timestamp: "Yesterday",
+        type: "Activities",
+        isRead: true,
+      ),
     ]);
   }
 
@@ -49,13 +62,19 @@ class MessageController extends GetxController {
 
   List<Message> getMessagesForTab() {
     return messages
-        .where((message) => message.category == selectedTab.value)
+        .where((message) => message.type == selectedTab.value)
         .toList();
   }
 
   void markAllAsRead() {
     for (var message in messages) {
-      message.isRead = true;
+      message = Message(
+        title: message.title,
+        subtitle: message.subtitle,
+        timestamp: message.timestamp,
+        type: message.type,
+        isRead: true,
+      );
     }
     messages.refresh();
   }

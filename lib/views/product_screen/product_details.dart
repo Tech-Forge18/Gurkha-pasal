@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
+import 'package:gurkha_pasal/consts/images.dart'; // Import for icCart
 import 'package:gurkha_pasal/controllers/cart_controller.dart';
 import 'package:gurkha_pasal/models/product.dart';
 import 'package:gurkha_pasal/views/cart_screen/cart.dart';
@@ -22,8 +23,34 @@ class ProductDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 245, 244, 244),
       appBar: AppBar(
-        title: product.name.text.fontFamily(bold).white.make(),
-        backgroundColor: redColor,
+        title: Row(
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween, // Spread name and icon
+          children: [
+            product.name.text
+                .fontFamily(bold)
+                .black
+                .make(), // Product name on the left
+            GestureDetector(
+              onTap: () {
+                Get.to(
+                  () => const CartScreen(),
+                ); // Navigate to CartScreen on tap
+              },
+              child: Image.asset(
+                icCart, // Cart icon from images.dart
+                width: 24,
+                color: const Color.fromARGB(
+                  255,
+                  241,
+                  118,
+                  16,
+                ), // Match the title color
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: const Color.fromARGB(255, 255, 245, 238),
       ),
       body: Column(
         children: [
@@ -153,7 +180,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ).pOnly(bottom: 24),
+                        ).pOnly(top: 24),
 
                         // Reviews Section with Navigation
                         GestureDetector(

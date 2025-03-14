@@ -2,6 +2,7 @@
 
 /// Icons for UI elements
 const String icAdd = "assets/icons/add.png";
+
 const String icAppLogo = "assets/icons/app_logo.png";
 const String icAppleLogo = "assets/icons/apple_logo.png";
 const String icArrow = "assets/icons/arrow.png";

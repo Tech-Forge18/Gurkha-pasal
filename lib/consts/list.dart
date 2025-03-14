@@ -47,5 +47,4 @@ const List<String> socialIconList = [
   icGoogleLogo,
   icFacebookLogo,
   icTwitterLogo,
- 
 ];

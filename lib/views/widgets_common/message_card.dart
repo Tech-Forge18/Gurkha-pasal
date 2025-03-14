@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
-import 'package:gurkha_pasal/models/message.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:gurkha_pasal/controllers/message_controller.dart';
 
 class MessageCard extends StatelessWidget {
   final Message message;
@@ -11,63 +13,54 @@ class MessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: whiteColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      color: const Color.fromARGB(255, 212, 211, 211),
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        leading: CircleAvatar(
+          backgroundColor: redColor.withOpacity(0.1),
+          child: Icon(
+            message.type == "Chats"
+                ? Icons.person
+                : message.type == "Orders"
+                ? Icons.local_shipping
+                : message.type == "Promos"
+                ? Icons.local_offer
+                : Icons.notifications,
+            color: redColor,
+          ),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Image
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                message.imageUrl,
-                width: 100,
-                height: 80,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: 100,
-                    height: 80,
-                    color: lightGrey,
-                    child: const Icon(Icons.image, color: darkFontGrey),
-                  );
-                },
+            message.title.text
+                .fontFamily(semibold)
+                .color(const Color.fromARGB(255, 14, 13, 13))
+                .size(16)
+                .make(),
+            if (!message.isRead)
+              Container(
+                width: 10,
+                height: 10,
+                decoration: const BoxDecoration(
+                  color: redColor,
+                  shape: BoxShape.circle,
+                ),
               ),
-            ),
-            16.widthBox,
-            // Details
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (message.tag != null)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: orangeColor,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child:
-                          message.tag!.text.color(whiteColor).size(12).make(),
-                    ),
-                  4.heightBox,
-                  message.title.text
-                      .color(darkFontGrey)
-                      .fontFamily(semibold)
-                      .size(16)
-                      .make(),
-                  4.heightBox,
-                  message.description.text.color(fontGrey).size(14).make(),
-                ],
-              ),
-            ),
           ],
         ),
+        subtitle:
+            message.subtitle.text
+                .color(const Color.fromARGB(255, 36, 35, 35))
+                .size(14)
+                .maxLines(1)
+                .overflow(TextOverflow.ellipsis)
+                .make(),
+        onTap: () {
+          // Handle message tap (e.g., navigate to chat or details screen)
+          Get.snackbar("Message", "Tapped on ${message.title}");
+        },
       ),
     );
   }
