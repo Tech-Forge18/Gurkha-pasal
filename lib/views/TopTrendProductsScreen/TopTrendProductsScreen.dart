@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gurkha_pasal/controllers/product_controller.dart';
-import 'package:gurkha_pasal/views/widgets_common/exclusive_product_card.dart';
+import 'package:gurkha_pasal/models/product.dart';
+import 'package:gurkha_pasal/views/widgets_common/top_trend_products.dart';
 
-class ExclusiveDealsScreen extends StatefulWidget {
-  const ExclusiveDealsScreen({super.key});
+class TopTrendProductsScreen extends StatefulWidget {
+  const TopTrendProductsScreen({super.key});
 
   @override
-  State<ExclusiveDealsScreen> createState() => _ExclusiveDealsScreenState();
+  State<TopTrendProductsScreen> createState() => _TopTrendProductsScreenState();
 }
 
-class _ExclusiveDealsScreenState extends State<ExclusiveDealsScreen>
+class _TopTrendProductsScreenState extends State<TopTrendProductsScreen>
     with TickerProviderStateMixin {
   late AnimationController _gridAnimationController;
   late Animation<double> _gridFadeAnimation;
@@ -44,7 +45,7 @@ class _ExclusiveDealsScreenState extends State<ExclusiveDealsScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Exclusive Deals',
+          'Top Trend Products',
           style: TextStyle(
             fontFamily: 'bold',
             fontSize: 20,
@@ -59,34 +60,38 @@ class _ExclusiveDealsScreenState extends State<ExclusiveDealsScreen>
         if (productController.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (productController.exclusiveDeals.isEmpty) {
-          return const Center(child: Text('No exclusive deals available'));
+        if (productController.products.isEmpty) {
+          return const Center(child: Text('No top trend products available'));
         }
+
+        final trendingProducts =
+            productController.products
+                .where(
+                  (product) =>
+                      product.discount != null && product.discount! > 0,
+                )
+                .toList()
+              ..sort((a, b) => (b.discount ?? 0).compareTo(a.discount ?? 0));
 
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 160 / 220,
+              crossAxisCount: 2, // 2 columns
+              mainAxisSpacing: 12, // Vertical spacing between cards
+              crossAxisSpacing: 12, // Horizontal spacing between cards
+              childAspectRatio: 0.75, // Adjusted for better layout
             ),
-            itemCount: productController.exclusiveDeals.length,
+            itemCount: trendingProducts.length,
             itemBuilder: (context, index) {
-              final product = productController.exclusiveDeals[index];
               return AnimatedBuilder(
                 animation: _gridAnimationController,
                 builder: (context, child) {
                   return Opacity(
                     opacity: _gridFadeAnimation.value,
-                    child: ExclusiveDealCard(
-                      product: product,
-                      isCompact: false,
-                      showStockInfo: true,
-                      showOriginalPrice: true,
-                      fromExclusiveDeals:
-                          true, // Set to true for Exclusive Deals
+                    child: TopTrendProductCard(
+                      product: trendingProducts[index],
+                      isCompact: false, // Full version for this screen
                     ),
                   );
                 },

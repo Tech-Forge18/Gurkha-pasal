@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.gurkha_pasal"
-    compileSdk = 34  // Latest stable as of 2025, or use flutter.compileSdkVersion
+    compileSdk = 35  // Latest stable as of 2025, or use flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"  // Matches Firebase requirements
 
     compileOptions {
@@ -22,7 +22,7 @@ android {
     defaultConfig {
         applicationId = "com.example.gurkha_pasal"
         minSdk = 23  // Required by firebase-auth:23.2.0
-        targetSdk = 34  // Matches compileSdk
+        targetSdk = 35  // Matches compileSdk
         versionCode = flutter.versionCode  // Or set manually, e.g., 1
         versionName = flutter.versionName  // Or set manually, e.g., "1.0.0"
     }

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
-import 'package:gurkha_pasal/models/product.dart'; // Updated to match your file name
+
+import 'package:gurkha_pasal/controllers/followed_stores_controller.dart';
+import 'package:gurkha_pasal/controllers/order_controller.dart';
+import 'package:gurkha_pasal/controllers/wishlist_controller.dart';
+import 'package:gurkha_pasal/models/product.dart';
 import 'package:gurkha_pasal/views/splash_scree/splash_screen.dart';
 import 'package:gurkha_pasal/views/auth/login_screen.dart';
 import 'package:gurkha_pasal/views/auth/signup_screen.dart';
@@ -25,6 +29,9 @@ void main() async {
   // Initialize controllers
   Get.put(ProductController());
   Get.put(CartController());
+  Get.put(WishlistController());
+  Get.put(OrderController());
+  Get.put(FollowedStoresController());
 
   runApp(const MyApp());
 }
@@ -62,9 +69,7 @@ class MyApp extends StatelessWidget {
           name: '/product_details',
           page: () {
             final Product product = Get.arguments as Product;
-            return ProductDetailsScreen(
-              product: product,
-            ); // Pass product via constructor
+            return ProductDetailsScreen(product: product);
           },
         ),
         GetPage(name: '/cart', page: () => const CartScreen()),

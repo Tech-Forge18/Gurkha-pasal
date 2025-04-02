@@ -1,3 +1,4 @@
+// lib/consts/consts.dart
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -37,39 +38,24 @@ const String cart = "Cart";
 const String account = "Account";
 
 // Colors
-const Color fontGrey = Color.fromRGBO(
-  170,
-  170,
-  170,
-  1,
-); // Lightened for visibility
-const Color darkFontGrey = Color.fromRGBO(
-  200,
-  200,
-  200,
-  1,
-); // Lightened for visibility
+const Color fontGrey = Color.fromRGBO(170, 170, 170, 1);
+const Color darkFontGrey = Color.fromRGBO(200, 200, 200, 1);
 const Color whiteColor = Color.fromRGBO(255, 255, 255, 1);
 const Color lightGrey = Color.fromRGBO(239, 239, 239, 1);
 const Color redColor = Color.fromRGBO(239, 104, 8, 1);
 const Color orangeColor = Color.fromRGBO(255, 168, 0, 1);
 const Color lightGolden = Color(0xffFEEAD1);
 const Color greenColor = Color.fromRGBO(46, 204, 113, 1);
-const Color primaryColor = Color.fromRGBO(
-  239,
-  104,
-  8,
-  1,
-); // Aligned with redColor
+const Color primaryColor = Color.fromRGBO(239, 104, 8, 1);
 const bgColor = Color.fromARGB(255, 124, 123, 123);
 
 // Primary brand colors
-
-const Color secondaryColor = Color.fromRGBO(255, 168, 0, 1); // Orange accent
+const Color secondaryColor = Color.fromRGBO(255, 168, 0, 1);
 
 // Background colors
 const Color scaffoldBackgroundColor = Color.fromRGBO(240, 240, 240, 1);
+
 // Fonts
-const String bold = "bold";
+const String bold = "bold"; // For fontFamily
 const String semibold = "semibold";
 const String regular = "regular";

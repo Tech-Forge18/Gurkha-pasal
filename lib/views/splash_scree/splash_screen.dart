@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // Simplified import
+import 'package:get/get.dart';
 import 'package:gurkha_pasal/consts/consts.dart';
 import 'package:gurkha_pasal/consts/images.dart';
+import 'package:gurkha_pasal/controllers/product_controller.dart';
 import 'package:gurkha_pasal/views/auth/login_screen.dart';
 import 'package:gurkha_pasal/views/widgets_common/applogo_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key}); // Updated to use super.key
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -16,9 +17,19 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void changeScreen() {
     Future.delayed(const Duration(seconds: 3), () {
-      Get.off(
-        () => const LoginScreen(),
-      ); // Changed to Get.off for cleaner navigation
+      // Ensure ProductController is initialized and data is loaded
+      final productController = Get.find<ProductController>();
+      print(
+        'SplashScreen: Exclusive Deals before navigation: ${productController.exclusiveDeals.length}',
+      );
+
+      if (productController.exclusiveDeals.isEmpty) {
+        print('SplashScreen: Forcing product reload');
+        productController.loadProducts();
+      }
+
+      // Navigate to LoginScreen
+      Get.off(() => const LoginScreen());
     });
   }
 
